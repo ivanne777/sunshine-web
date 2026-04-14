@@ -63,6 +63,7 @@ body {
     width: 100%;
     opacity: 0;
     white-space: nowrap;
+    pointer-events: none;
 }
 
 .hidden {
