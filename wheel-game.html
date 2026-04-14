@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>La Roue de la Fortune ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    .wheel-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        margin: 50px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    #wheel {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 10px solid magenta;
+        background: conic-gradient(
+            #ff00ff 0deg 72deg,
+            #800080 72deg 144deg,
+            #ff00ff 144deg 216deg,
+            #800080 216deg 288deg,
+            #ff00ff 288deg 360deg
+        );
+        transition: transform 5s cubic-bezier(0.15, 0.45, 0.1, 1);
+        box-shadow: 0 0 40px rgba(255, 0, 255, 0.6);
+        position: relative;
+    }
+    .wheel-label {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        padding-top: 25px;
+        font-weight: bold;
+        color: white;
+        font-size: 1.1rem;
+        text-shadow: 1px 1px 2px black;
+    }
+    .pointer {
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0; height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-top: 50px solid white;
+        z-index: 100;
+        filter: drop-shadow(0 0 10px black);
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+    }
+    #result {
+        margin-top: 20px;
+        padding: 15px;
+        border-radius: 15px;
+        background: rgba(255, 0, 255, 0.2);
+        border: 2px solid magenta;
+        min-height: 80px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+    }
+</style>
+</head>
+<body>
+    <div id="rules" class="rules-overlay">
+        <h1 class="glow">Jeu 2 : La Roue Magique</h1>
+        <p>Tourne la roue pour découvrir ton cadeau surprise !</p>
+        <br>
+        <button onclick="closeRules()">C'est parti !</button>
+    </div>
+
+    <div class="container">
+        <h2 id="result" class="glow">Prête à tourner ? ❤️</h2>
+        <div class="wheel-container">
+            <div class="pointer"></div>
+            <div id="wheel">
+                <div class="wheel-label" style="transform: rotate(36deg)">BISOUS ❤️</div>
+                <div class="wheel-label" style="transform: rotate(108deg)">CÂLIN 🤗</div>
+                <div class="wheel-label" style="transform: rotate(180deg)">REPAS 🍕</div>
+                <div class="wheel-label" style="transform: rotate(252deg)">MASSAGE ✨</div>
+                <div class="wheel-label" style="transform: rotate(324deg)">SURPRISE 🎁</div>
+            </div>
+        </div>
+        <button id="spin-btn" onclick="spin()">CLIQUER POUR TOURNER</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        function closeRules() {
+            document.getElementById('rules').style.display = 'none';
+            playMusic();
+        }
+
+        let spinning = false;
+        function spin() {
+            if (spinning) return;
+            spinning = true;
+            const wheel = document.getElementById('wheel');
+            const resultText = document.getElementById('result');
+            const spinBtn = document.getElementById('spin-btn');
+            
+            spinBtn.style.display = "none";
+            
+            const deg = Math.floor(Math.random() * 360);
+            const randomRotation = deg + 3600; // 10 turns
+            wheel.style.transform = `rotate(${randomRotation}deg)`;
+            
+            resultText.innerHTML = "La roue tourne pour toi... ✨";
+            
+            setTimeout(() => {
+                const landingAngle = (360 - (deg % 360)) % 360;
+                
+                let gift = "";
+                let subtext = "";
+                if (landingAngle >= 0 && landingAngle < 72) {
+                    gift = "BISOUS ❤️";
+                    subtext = "Tu as gagné un bisou géant !";
+                } else if (landingAngle >= 72 && landingAngle < 144) {
+                    gift = "CÂLIN 🤗";
+                    subtext = "Un câlin de 10 minutes !";
+                } else if (landingAngle >= 144 && landingAngle < 216) {
+                    gift = "REPAS 🍕";
+                    subtext = "Ton plat préféré préparé par moi !";
+                } else if (landingAngle >= 216 && landingAngle < 288) {
+                    gift = "MASSAGE ✨";
+                    subtext = "Une soirée massage relaxant !";
+                } else {
+                    gift = "SURPRISE 🎁";
+                    subtext = "Une surprise inattendue arrive !";
+                }
+                
+                resultText.innerHTML = `
+                    <span style="font-size: 0.9rem; color: white;">Résultat :</span>
+                    <span style="font-size: 1.8rem; color: magenta; display: block; margin: 5px 0;">${gift}</span>
+                    <span style="font-size: 1.1rem; color: violet;">${subtext}</span>
+                `;
+                
+                setTimeout(() => {
+                    window.location.href = '/game-find-heart';
+                }, 5000);
+            }, 5500);
+        }
+    </script>
+</body>
+</html>

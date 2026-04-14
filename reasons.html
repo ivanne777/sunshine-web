@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>100 Raisons pour lesquelles je t'aime ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    .reasons-container {
+        max-width: 800px;
+        height: 70vh;
+        margin: 20px auto;
+        padding: 40px;
+        background: rgba(45, 0, 45, 0.6);
+        border: 2px solid magenta;
+        border-radius: 20px;
+        overflow-y: auto;
+        text-align: left;
+    }
+    .reason-item {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 0, 255, 0.2);
+        padding-bottom: 10px;
+        animation: fadeIn 1s ease forwards;
+    }
+    .reason-num {
+        color: magenta;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    .reasons-container::-webkit-scrollbar { width: 8px; }
+    .reasons-container::-webkit-scrollbar-thumb { background: magenta; border-radius: 10px; }
+</style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='/game-find-heart'">↺ Retour</button>
+
+    <div class="container">
+        <h1 class="glow">100 Raisons pour lesquelles je t'aime ❤️</h1>
+        
+        <div class="reasons-container" id="reasons-list">
+            <!-- Rempli par JS -->
+        </div>
+
+        <br>
+        <button onclick="window.location.href='/final-message'">Lire mon dernier mot 💖</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const reasons = [
+            "tu n'as jamais eu honte de moi",
+            "tu as accepté de continuer avec moi même quand je te dis des dingueries, malgré que parfois je t'insulte tu restes toujours là",
+            "tu crois en moi",
+            "tu sais reconnaître tes torts bae",
+            "tu t'es déjà sacrifiée pour me faire plaisir",
+            "tu es ma meilleure amie avant tout",
+            "ton sourire illumine mes journées les plus sombres",
+            "tu me soutiens dans tous mes projets",
+            "tu es la personne la plus attentionnée que je connaisse",
+            "tu as un cœur d'or",
+            "ta patience avec moi est infinie",
+            "tu es magnifique, même au réveil",
+            "tu me pousses à devenir une meilleure version de moi-même",
+            "tu respectes mes silences",
+            "tu connais tous mes secrets et tu m'aimes quand même",
+            "tu es mon refuge, ma maison",
+            "ta force m'impressionne chaque jour",
+            "tu es intelligente et brillante",
+            "tu as le don de me faire rire quand j'ai envie de pleurer",
+            "tu es loyale et fidèle",
+            "tu es mon équilibre",
+            "tu es mon plus beau cadeau",
+            "tu es la seule qui me comprend sans que je parle",
+            "tu es ma motivation quotidienne",
+            "ton amour est pur et sincère",
+            "tu es mon âme sœur",
+            "tu es la plus belle chose qui me soit arrivée",
+            "tu es courageuse",
+            "tu as un humour incroyable",
+            "tu es douce",
+            "tu es protectrice avec ceux que tu aimes",
+            "tu es authentique, tu ne joues jamais de rôle",
+            "tu es généreuse",
+            "tu es passionnée",
+            "tu es unique au monde",
+            "tu es mon porte-bonheur",
+            "tu es ma confidente",
+            "tu es ma plus grande fierté",
+            "tu es irrésistible",
+            "tu es mon évidence",
+            "tu es ma priorité",
+            "tu es ma muse",
+            "tu es mon rayon de soleil",
+            "tu es mon étoile",
+            "tu es ma vie",
+            "tu es mon univers",
+            "tu es mon futur",
+            "tu es mon présent",
+            "tu es ma joie",
+            "tu es ma paix",
+            "tu es mon oxygène",
+            "tu es mon inspiration",
+            "tu es mon trésor",
+            "tu es ma perle",
+            "tu es ma reine",
+            "tu es mon ange",
+            "tu es ma moitié",
+            "tu es mon tout",
+            "tu es ma sunshine",
+            "tu es ma moonlight",
+            "tu es ma sunset",
+            "tu es mon plus beau souvenir",
+            "tu es mon plus beau rêve",
+            "tu es ma réalité préférée",
+            "tu es mon ambition",
+            "tu es ma réussite",
+            "tu es mon réconfort",
+            "tu es ma force",
+            "tu es ma faiblesse",
+            "tu es mon secret",
+            "tu es ma lumière",
+            "tu es mon ombre protectrice",
+            "tu es mon guide",
+            "tu es mon ancre",
+            "tu es mon aile",
+            "tu es ma chanson préférée",
+            "tu es mon histoire d'amour",
+            "tu es mon début et ma fin",
+            "tu es mon éternité",
+            "tu es ma chance",
+            "tu es mon destin",
+            "tu es mon miracle",
+            "tu es ma raison d'être",
+            "tu es mon bonheur",
+            "tu es ma douceur",
+            "tu es ma passion",
+            "tu es ma tendresse",
+            "tu es mon désir",
+            "tu es mon respect",
+            "tu es mon admiration",
+            "tu es mon soutien",
+            "tu es mon alliée",
+            "tu es mon amour infini",
+            "tu es mon grand Amour",
+            "tu es mon tout premier choix",
+            "tu es ma vie entière",
+            "tu es mon coeur qui bat",
+            "tu es mon sang qui coule",
+            "tu es mon souffle",
+            "je t'aime tout simplement pour qui tu es"
+        ];
+
+        const list = document.getElementById('reasons-list');
+        reasons.forEach((reason, index) => {
+            const div = document.createElement('div');
+            div.className = 'reason-item';
+            div.innerHTML = `<span class="reason-num">${index + 1}.</span> ${reason}`;
+            list.appendChild(div);
+        });
+    </script>
+</body>
+</html>

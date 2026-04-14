@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Trouve le Cœur ! ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    .garden {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        gap: 10px;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+    .flower {
+        font-size: 2.5rem;
+        cursor: pointer;
+        transition: transform 0.3s;
+        user-select: none;
+    }
+    .flower:hover { transform: scale(1.2); }
+    .flower.big {
+        transform: scale(1.6);
+        filter: drop-shadow(0 0 10px magenta);
+    }
+    .rules-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+    #timer {
+        font-size: 2rem;
+        color: magenta;
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+    <div id="rules" class="rules-overlay">
+        <h1 class="glow">Jeu 3 : Où est mon cœur ?</h1>
+        <p>Un cœur violet est caché sous l'une des 50 fleurs. Tu as 30 secondes pour le trouver !</p>
+        <br>
+        <button onclick="startGame()">C'est parti !</button>
+    </div>
+
+    <div class="container">
+        <div id="timer">Temps : 30s</div>
+        <div class="garden" id="garden"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let timeLeft = 30;
+        let gameActive = false;
+        const garden = document.getElementById('garden');
+        const heartPos = Math.floor(Math.random() * 50);
+        const flowers = [];
+
+        function startGame() {
+            document.getElementById('rules').style.display = 'none';
+            playMusic();
+            gameActive = true;
+            
+            for(let i=0; i<50; i++) {
+                const f = document.createElement('div');
+                f.className = 'flower';
+                f.innerHTML = "🌸";
+                f.onclick = () => {
+                    if(!gameActive) return;
+                    if(i === heartPos) {
+                        f.innerHTML = "💜";
+                        gameActive = false;
+                        alert("Trouvé ! Tu es trop forte ❤️");
+                        window.location.href = '/reasons';
+                    } else {
+                        f.style.opacity = "0.3";
+                        f.style.pointerEvents = "none";
+                    }
+                };
+                garden.appendChild(f);
+                flowers.push(f);
+            }
+
+            const interval = setInterval(() => {
+                if(!gameActive) { clearInterval(interval); return; }
+                timeLeft--;
+                document.getElementById('timer').innerText = "Temps : " + timeLeft + "s";
+                
+                // Hint at 7 seconds left
+                if (timeLeft === 7) {
+                    showHint();
+                }
+
+                if(timeLeft <= 0) {
+                    clearInterval(interval);
+                    gameActive = false;
+                    alert("Temps écoulé ! On réessaye ?");
+                    window.location.reload();
+                }
+            }, 1000);
+        }
+
+        function showHint() {
+            // Pick 5 random flowers, including the one with the heart
+            let hintIndices = [heartPos];
+            while (hintIndices.length < 5) {
+                let rand = Math.floor(Math.random() * 50);
+                if (!hintIndices.includes(rand)) hintIndices.push(rand);
+            }
+            hintIndices.forEach(idx => {
+                flowers[idx].classList.add('big');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Connexion ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='/'">↺ Retour</button>
+    
+    <div class="container login-box">
+        <h1 class="glow">Identification requise</h1>
+        <p>Entre ton code secret, Sunshine 💖</p>
+        <input type="password" id="password" placeholder="Code secret..." maxlength="4">
+        <br>
+        <button onclick="checkPassword()">Valider</button>
+        <p id="error-msg" style="color: red; margin-top: 10px; display: none;">Code incorrect... Essaye encore bae !</p>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    function checkPassword() {
+        const pass = document.getElementById("password").value;
+        if (pass === "4012") {
+            playMusic(); // Ensure music plays/continues
+            document.body.innerHTML = `
+                <div class="container">
+                    <h1 class="glow" style="font-size: 4rem;">Bienvenue Sunshine ❤️</h1>
+                </div>
+            `;
+            setTimeout(() => {
+                window.location.href = "/beauty";
+            }, 2500);
+        } else {
+            const error = document.getElementById("error-msg");
+            error.style.display = "block";
+            document.getElementById("password").value = "";
+        }
+    }
+    // Allow Enter key
+    document.getElementById("password").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") checkPassword();
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Nos Souvenirs ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    .slideshow-container {
+        position: relative;
+        max-width: 800px;
+        width: 90%;
+        height: 70vh;
+        margin: 20px auto;
+        border: 4px solid magenta;
+        border-radius: 20px;
+        overflow: hidden;
+        background: black;
+        box-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+        display: flex;
+        flex-direction: column;
+    }
+    .slide {
+        display: none;
+        width: 100%;
+        height: 100%;
+        animation: fadeEffect 1s;
+        position: relative;
+    }
+    @keyframes fadeEffect {
+        from {opacity: 0.4;} 
+        to {opacity: 1;}
+    }
+    .slide img, .slide video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        background: black;
+    }
+    .caption {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.7);
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 1.2rem;
+        font-style: italic;
+    }
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: magenta;
+        font-weight: bold;
+        font-size: 2.5rem;
+        transition: 0.3s;
+        user-select: none;
+        background: rgba(0,0,0,0.5);
+        border: 2px solid magenta;
+        border-radius: 50%;
+        z-index: 100;
+    }
+    .prev { left: 10px; }
+    .next { right: 10px; }
+    .prev:hover, .next:hover { background-color: magenta; color: black; }
+    
+    .controls {
+        margin-top: 15px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    #play-pause-btn {
+        background: magenta;
+        color: black;
+        padding: 10px 25px;
+        border: none;
+        border-radius: 50px;
+        font-weight: bold;
+        cursor: pointer;
+        min-width: 120px;
+    }
+
+    #progress {
+        font-size: 1.2rem;
+        color: violet;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='/game-find-heart'">↺ Retour</button>
+
+    <div class="container">
+        <h1 class="glow">Nos moments précieux... ❤️</h1>
+        
+        <div class="slideshow-container" id="slideshow">
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        
+        <div class="controls">
+            <div id="progress">1 / 1</div>
+            <button id="play-pause-btn" onclick="toggleAuto()">Pause ⏸️</button>
+        </div>
+
+        <br>
+        <button onclick="window.location.href='/'">Recommencer l'aventure ❤️</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const media = [
+            { type: 'photo', src: '/assets/photos/1768733361852.jpg', desc: 'quand tu me rendais rebel ❤️' },
+            { type: 'photo', src: '/assets/photos/1768733365454.jpg', desc: 'Moment ✨' },
+            { type: 'photo', src: '/assets/photos/1768733368332.jpg', desc: 'Moment 😍' },
+            { type: 'photo', src: '/assets/photos/1768733379043.jpg', desc: 'Moment 💖' },
+            { type: 'photo', src: '/assets/photos/IMG-20250807-WA0014.jpg', desc: 'Moment 🌹' },
+            { type: 'photo', src: '/assets/photos/IMG-20251018-WA0093.jpg', desc: 'Moment 🌟' },
+            { type: 'photo', src: '/assets/photos/IMG-20251018-WA0094.jpg', desc: 'Moment 💍' },
+            { type: 'photo', src: '/assets/photos/IMG-20251018-WA0100.jpg', desc: 'Nouveau Moment ❤️' },
+            { type: 'photo', src: '/assets/photos/IMG-20251018-WA0101.jpg', desc: 'Nouveau Moment ✨' },
+            { type: 'photo', src: '/assets/photos/IMG-20251018-WA0102.jpg', desc: 'Nouveau Moment 😍' },
+            { type: 'photo', src: '/assets/photos/Screenshot_20260101-014833_1.png', desc: 'Capture 📸' },
+            { type: 'photo', src: '/assets/photos/Snapchat-1057844981.jpg', desc: 'Snap ✨' },
+            { type: 'photo', src: '/assets/photos/Snapchat-1061242028.jpg', desc: 'Snap 💖' },
+            { type: 'photo', src: '/assets/photos/Snapchat-1649810850.jpg', desc: 'Nouveau Snap ✨' },
+            { type: 'photo', src: '/assets/photos/Snapchat-1711151828.jpg', desc: 'Nouveau Snap 💖' },
+            { type: 'photo', src: '/assets/photos/Snapchat-2117654323.jpg', desc: 'Snap 😍' },
+            { type: 'photo', src: '/assets/photos/Snapchat-2137050189.jpg', desc: 'Snap ❤️' },
+            { type: 'photo', src: '/assets/photos/Snapchat-326160179.jpg', desc: 'Snap 🌟' },
+            { type: 'photo', src: '/assets/photos/Snapchat-35561079.jpg', desc: 'Snap ✨' },
+            { type: 'photo', src: '/assets/photos/WhatsApp Image 2026-04-06 at 14.57.54.jpeg', desc: 'Nouveau Moment ❤️' },
+            { type: 'photo', src: '/assets/photos/WhatsApp Image 2026-04-06 at 14.58.11.jpeg', desc: 'Nouveau Moment ✨' },
+            
+            { type: 'video', src: '/assets/vidéos/a5451e086d924df7a4577d8eddff5128.mp4', desc: 'Vidéo 🎥' },
+            { type: 'video', src: '/assets/vidéos/VID-20250821-WA0241.mp4', desc: 'Vidéo 💖' },
+            { type: 'video', src: '/assets/vidéos/VID-20260105-WA0013.mp4', desc: 'Vidéo 😍' },
+            { type: 'video', src: '/assets/vidéos/VID-20260105-WA0015.mp4', desc: 'Vidéo ✨' },
+            { type: 'video', src: '/assets/vidéos/VID-20260109-WA0559.mp4', desc: 'Nouvelle Vidéo 🎥' },
+            { type: 'video', src: '/assets/vidéos/VID-20260121-WA0005.mp4', desc: 'Nouvelle Vidéo 💖' },
+            { type: 'video', src: '/assets/vidéos/VID-20260121-WA0006.mp4', desc: 'Nouvelle Vidéo 😍' },
+            { type: 'video', src: '/assets/vidéos/VID-20260121-WA0007.mp4', desc: 'Nouvelle Vidéo ✨' },
+            { type: 'video', src: '/assets/vidéos/VID-20260121-WA0008.mp4', desc: 'Nouvelle Vidéo 🎥' }
+        ];
+
+        let slideIndex = 1;
+        let autoPlay = true;
+        let slideTimer;
+        const slideshow = document.getElementById('slideshow');
+
+        // Inject slides
+        media.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'slide';
+            if (item.type === 'photo') {
+                div.innerHTML = `<img src="${item.src}"><div class="caption">${item.desc}</div>`;
+            } else {
+                // Muted auto-playing videos as requested
+                div.innerHTML = `<video src="${item.src}" muted autoplay loop playsinline></video><div class="caption">${item.desc}</div>`;
+            }
+            slideshow.insertBefore(div, slideshow.querySelector('.prev'));
+        });
+
+        showSlides(slideIndex);
+        startTimer();
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+            resetTimer();
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            if (n > slides.length) {slideIndex = 1}    
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                const video = slides[i].querySelector('video');
+                if (video) video.pause();
+            }
+            slides[slideIndex-1].style.display = "block";
+            const currentVideo = slides[slideIndex-1].querySelector('video');
+            if (currentVideo) currentVideo.play();
+            
+            document.getElementById('progress').innerText = slideIndex + " / " + slides.length;
+        }
+
+        function startTimer() {
+            if (autoPlay) {
+                slideTimer = setInterval(() => {
+                    plusSlides(1);
+                }, 5000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(slideTimer);
+            startTimer();
+        }
+
+        function toggleAuto() {
+            autoPlay = !autoPlay;
+            const btn = document.getElementById('play-pause-btn');
+            if (autoPlay) {
+                btn.innerText = "Pause ⏸️";
+                startTimer();
+            } else {
+                btn.innerText = "Lecture ▶️";
+                clearInterval(slideTimer);
+            }
+        }
+    </script>
+</body>
+</html>

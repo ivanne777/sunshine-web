@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Pop les Ballons ! ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    .balloon {
+        position: absolute;
+        width: 70px;
+        height: 90px;
+        background: magenta;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.8rem;
+        box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3);
+        animation: floatUp 5s linear forwards;
+        z-index: 10;
+        user-select: none;
+    }
+    .balloon::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        width: 2px;
+        height: 25px;
+        background: rgba(255, 255, 255, 0.7);
+    }
+    @keyframes floatUp {
+        from { transform: translateY(110vh); }
+        to { transform: translateY(-150px); }
+    }
+    .rules-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+    #counter {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        font-size: 2.5rem;
+        color: magenta;
+        text-shadow: 0 0 10px magenta;
+        z-index: 100;
+    }
+</style>
+</head>
+<body>
+    <div id="rules" class="rules-overlay">
+        <h1 class="glow">Jeu 1 : Éclate les Ballons !</h1>
+        <p>Des ballons magiques montent vers le ciel. Éclate-en 10 pour passer au niveau suivant !</p>
+        <br>
+        <button onclick="startGame()">J'ai compris !</button>
+    </div>
+
+    <div id="counter">0 / 10</div>
+    <div id="game-container" style="position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none;"></div>
+
+    <script src="script.js"></script>
+    <script>
+        let score = 0;
+        let gameActive = false;
+
+        function startGame() {
+            document.getElementById('rules').style.display = 'none';
+            playMusic();
+            gameActive = true;
+            spawnBalloon();
+        }
+
+        function spawnBalloon() {
+            if (!gameActive || score >= 10) return;
+            
+            const b = document.createElement('div');
+            b.className = 'balloon';
+            b.innerHTML = "💜";
+            b.style.left = (Math.random() * 80 + 10) + 'vw';
+            b.style.backgroundColor = `hsl(${Math.random() * 60 + 280}, 100%, 60%)`;
+            b.style.pointerEvents = "auto"; // Ensure it can be clicked
+
+            b.addEventListener('mousedown', (e) => {
+                e.preventDefault();
+                pop(b);
+            });
+
+            document.getElementById('game-container').appendChild(b);
+            
+            setTimeout(spawnBalloon, 700);
+            setTimeout(() => { if(b.parentNode) b.remove(); }, 6000);
+        }
+
+        function pop(b) {
+            score++;
+            document.getElementById('counter').innerText = score + " / 10";
+            b.style.transform = "scale(1.5)";
+            b.style.opacity = "0";
+            setTimeout(() => b.remove(), 100);
+            
+            if (score >= 10) {
+                gameActive = false;
+                setTimeout(() => window.location.href = '/game-wheel', 1000);
+            }
+        }
+    </script>
+</body>
+</html>

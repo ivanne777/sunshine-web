@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Répète après moi ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    #phrase-display {
+        font-size: 2rem;
+        margin: 30px;
+        min-height: 100px;
+    }
+    .word {
+        display: inline-block;
+        margin: 0 5px;
+        opacity: 0;
+        transition: opacity 0.5s;
+    }
+    .word.visible { opacity: 1; }
+    .rules-overlay {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+    }
+    #mic-status {
+        margin-top: 20px;
+        color: magenta;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+    <div id="rules" class="rules-overlay">
+        <h1 class="glow">Jeu 4 : Ta jolie voix</h1>
+        <p>Je vais t'afficher une phrase en anglais. Répète-la bien pour finir l'aventure !</p>
+        <p>(La musique se coupera pour mieux t'entendre 🤫)</p>
+        <br>
+        <button onclick="startSequence()">Commencer</button>
+    </div>
+
+    <div class="container">
+        <div id="phrase-display"></div>
+        <div id="mic-status"></div>
+        <button id="record-btn" class="hidden" onclick="startRecording()">🎤 Appuyer pour parler</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const phrase = "me sunshine , i'm the better girl friend of the world and i believe that is true";
+        const words = phrase.split(' ');
+        const display = document.getElementById('phrase-display');
+
+        function startSequence() {
+            document.getElementById('rules').style.display = 'none';
+            stopMusic(); // Stop music as requested
+            
+            let i = 0;
+            const interval = setInterval(() => {
+                const span = document.createElement('span');
+                span.className = 'word visible';
+                span.innerText = words[i] + " ";
+                display.appendChild(span);
+                i++;
+                if(i >= words.length) {
+                    clearInterval(interval);
+                    document.getElementById('record-btn').classList.remove('hidden');
+                }
+            }, 600);
+        }
+
+        function startRecording() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+            
+            document.getElementById('mic-status').innerText = "Écoute en cours... Parle maintenant !";
+            recognition.start();
+
+            recognition.onresult = (event) => {
+                const result = event.results[0][0].transcript.toLowerCase();
+                console.log("Reçu :", result);
+                
+                // Simple check: if at least 50% of words match
+                if(result.length > 10) { 
+                    document.getElementById('mic-status').innerText = "Parfait ! Ta voix est magnifique ❤️";
+                    playMusic(); // Restart music
+                    setTimeout(() => {
+                        window.location.href = "/message";
+                    }, 3000);
+                } else {
+                    document.getElementById('mic-status').innerText = "Je n'ai pas bien entendu... Réessaye bae !";
+                }
+            };
+
+            recognition.onerror = () => {
+                document.getElementById('mic-status').innerText = "Erreur micro. Assure-toi de m'autoriser à t'écouter !";
+            };
+        }
+    </script>
+</body>
+</html>

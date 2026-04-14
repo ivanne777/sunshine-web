@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Question ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+    background: radial-gradient(circle, #1a001a 0%, black 100%);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow: hidden;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-size: 2rem;
+    text-shadow: 0 0 15px rgba(255, 0, 255, 0.7);
+    text-align: center;
+    padding: 0 20px;
+    max-width: 800px;
+}
+
+.buttons {
+    position: relative;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+button {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    background: transparent;
+    border: 3px solid magenta;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.3);
+}
+
+#yes:hover {
+    background: magenta;
+    color: black;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px magenta;
+}
+
+#no {
+    position: relative;
+    z-index: 5;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.falling-heart {
+    position: absolute;
+    color: violet;
+    font-size: 24px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 100;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+.full-screen-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+</style>
+
+</head>
+<body>
+<button class="back-btn" onclick="window.location.href='/suite'">↺ Retour</button>
+<h1>avant de vraiment commencer l'aventure stp bae peux-tu chanter pour moi ? ❤️</h1>
+
+<div class="buttons">
+    <button id="yes" onclick="yesClick()">Oui 💖</button>
+    <button id="no">Non 😢</button>
+</div>
+
+<div id="hearts-explosion-container" class="full-screen-hearts"></div>
+
+<script src="script.js"></script>
+<script>
+const noBtn = document.getElementById("no");
+const explosionContainer = document.getElementById("hearts-explosion-container");
+const messages = [
+    "aller quoi fais un éffort",
+    "stp bae",
+    "parresseuse",
+    "please",
+    "juste une petite chanson",
+    "tout ça parceque tu chante mal"
+];
+let count = 0;
+let isSpinning = false;
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+function moveButton() {
+    if (isSpinning) return;
+
+    // Move logic
+    const x = Math.random() * (window.innerWidth - 200);
+    const y = Math.random() * (window.innerHeight - 100);
+
+    noBtn.style.position = "fixed";
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    if (count < messages.length) {
+        noBtn.innerText = messages[count];
+        count++;
+    } else {
+        startSpinningSequence();
+    }
+}
+
+function startSpinningSequence() {
+    isSpinning = true;
+    noBtn.classList.add("spinning");
+    
+    // Spin for 7 seconds
+    setTimeout(() => {
+        explode();
+    }, 7000);
+}
+
+function explode() {
+    noBtn.style.display = "none";
+    
+    // Thousands of hearts
+    for (let i = 0; i < 1000; i++) {
+        setTimeout(() => {
+            createHeart();
+        }, i * 5);
+    }
+
+    // After explosion, go to scratch card page
+    setTimeout(() => {
+        window.location.href = "/scratch";
+    }, 7000);
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("falling-heart");
+    heart.innerHTML = "💜";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "-5vh";
+    heart.style.animationDuration = Math.random() * 2 + 1 + "s";
+    heart.style.opacity = Math.random();
+    heart.style.fontSize = Math.random() * 30 + 10 + "px";
+    
+    explosionContainer.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 3000);
+}
+
+function yesClick() {
+    window.location.href = "/scratch";
+}
+</script>
+
+</body>
+</html>

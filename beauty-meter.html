@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Vérification de Beauté ❤️</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='/login'">↺ Retour</button>
+    
+    <div class="container">
+        <div id="step1">
+            <h1 class="glow">Le code d'accès était correct...</h1>
+            <p class="fade" style="animation-delay: 1s;">mais n'importe qui pouvait l'écrire.</p>
+            <p class="fade" style="animation-delay: 3s;">Alors pour être sûr que c'est toi, on va mesurer ta beauté ✨</p>
+            <button class="fade" style="animation-delay: 5s;" onclick="startMeasurement()">Commencer le test</button>
+        </div>
+
+        <div id="step2" class="hidden">
+            <div class="big-heart">💜</div>
+            <div class="percentage" id="percent">0%</div>
+            <p id="comment" style="margin-top: 20px; font-style: italic; color: violet;"></p>
+        </div>
+
+        <div id="step3" class="hidden">
+            <h1 class="glow">Score : 320% 😍</h1>
+            <h2 class="fade">"ouais ya que ma copine pour atteindre ce score"</h2>
+            <br>
+            <button onclick="window.location.href='/suite'">Continuer l'aventure 💖</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+    function startMeasurement() {
+        playMusic();
+        document.getElementById("step1").classList.add("hidden");
+        document.getElementById("step2").classList.remove("hidden");
+        
+        let count = 0;
+        const percentEl = document.getElementById("percent");
+        const commentEl = document.getElementById("comment");
+        
+        const interval = setInterval(() => {
+            count++;
+            percentEl.innerText = count + "%";
+            
+            if (count === 50) commentEl.innerText = "Chargement de ta splendeur...";
+            if (count === 100) commentEl.innerText = "Calcul impossible, trop de beauté...";
+            if (count === 200) commentEl.innerText = "ALERTE : DÉPASSEMENT DES LIMITES !";
+            if (count === 300) commentEl.innerText = "PRESQUE AU MAXIMUM...";
+            
+            if (count >= 320) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    document.getElementById("step2").classList.add("hidden");
+                    document.getElementById("step3").classList.remove("hidden");
+                }, 1500);
+            }
+        }, 30);
+    }
+    </script>
+</body>
+</html>

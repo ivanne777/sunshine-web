@@ -1,0 +1,238 @@
+/* ========================= */
+/* BASE PAGE */
+/* ========================= */
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #1a001a;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 40px 0;
+}
+
+/* ========================= */
+/* INTRO CINÉMATIQUE */
+/* ========================= */
+
+#intro-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, #2d002d 0%, #000000 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+#hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+#intro-text-wrapper {
+    position: relative;
+    z-index: 10;
+}
+
+.intro-text {
+    font-size: 3rem;
+    color: magenta;
+    text-shadow: 0 0 20px magenta;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    opacity: 0;
+    white-space: nowrap;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeInOut 4s ease-in-out forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+    100% { opacity: 0; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+#discover-btn {
+    padding: 15px 40px;
+    background: transparent;
+    border: 3px solid magenta;
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px magenta;
+}
+
+#discover-btn:hover {
+    background: magenta;
+    color: black;
+    transform: scale(1.1);
+}
+
+/* ========================= */
+/* COEURS */
+/* ========================= */
+
+.falling-heart {
+    position: absolute;
+    color: violet;
+    font-size: 20px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 5;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+/* ========================= */
+/* BOUTON RETOUR */
+/* ========================= */
+
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    background: transparent;
+    border: 1px solid magenta;
+    color: magenta;
+    border-radius: 20px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: magenta;
+    color: black;
+    box-shadow: 0 0 10px magenta;
+}
+
+/* ========================= */
+/* BEAUTY METER */
+/* ========================= */
+
+.big-heart {
+    font-size: 150px;
+    color: magenta;
+    text-shadow: 0 0 30px magenta;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.percentage {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    margin-top: 20px;
+}
+
+/* ========================= */
+/* LOGIN FORM */
+/* ========================= */
+
+.login-box {
+    background: rgba(45, 0, 45, 0.5);
+    padding: 40px;
+    border-radius: 20px;
+    border: 2px solid magenta;
+    box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+}
+
+input {
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid magenta;
+    background: black;
+    color: white;
+    font-size: 1.2rem;
+    text-align: center;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+input:focus {
+    box-shadow: 0 0 10px magenta;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1.glow {
+    color: magenta;
+    text-shadow: 0 0 15px magenta;
+}
+
+button {
+    margin-top: 30px;
+    padding: 12px 30px;
+    background: transparent;
+    border: 2px solid magenta;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: magenta;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* ========================= */
+/* ANIMATION GLOBALE */
+/* ========================= */
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}

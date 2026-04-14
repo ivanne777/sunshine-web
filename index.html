@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenue ❤️</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <!-- INTRO CINÉMATIQUE -->
+    <div id="intro-container">
+        <div id="hearts-container"></div>
+        <div id="intro-text-wrapper">
+            <h1 class="intro-text" id="text1">Coucou toi...</h1>
+            <h1 class="intro-text" id="text2">J'espère que tu vas bien ❤️</h1>
+            <h1 class="intro-text" id="text3">J'ai préparé un truc pour toi</h1>
+            <button id="discover-btn" class="hidden" onclick="showMainContent()">Découvrir</button>
+        </div>
+    </div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <div id="main-content" class="container hidden">
+        <h1 class="glow">L'aventure commence...</h1>
+        <p class="fade">Es-tu prête ? 💖</p>
+        <button onclick="window.location.href='/login'">C'est parti !</button>
+    </div>
+
+    <button class="back-btn" onclick="window.location.reload()">↺ Retour</button>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Surprises pour toi ❤️</title>
+<link rel="stylesheet" href="style.css">
+<style>
+    .scratch-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        max-width: 600px;
+        margin: auto;
+    }
+    .option-card {
+        position: relative;
+        width: 100%;
+        min-height: 60px;
+        background: rgba(255, 0, 255, 0.1);
+        border: 2px solid magenta;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .hidden-text {
+        font-size: 1.2rem;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        z-index: 1;
+    }
+    .heart-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #1a001a;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        font-size: 2rem;
+    }
+    .heart-cover.revealed {
+        opacity: 0;
+        transform: scale(1.5);
+        pointer-events: none;
+    }
+</style>
+</head>
+<body>
+    <button class="back-btn" onclick="window.location.href='/question'">↺ Retour</button>
+
+    <div class="container">
+        <h1 class="glow">Clique sur les cœurs pour voir... ❤️</h1>
+        <br>
+        <div class="scratch-container">
+            <div class="option-card" onclick="reveal(this)">
+                <div class="heart-cover">💜</div>
+                <div class="hidden-text">tu es trop belle ma sunshine</div>
+            </div>
+            <div class="option-card" onclick="reveal(this)">
+                <div class="heart-cover">💜</div>
+                <div class="hidden-text">tu es plus intelligente que tu ne le penses</div>
+            </div>
+            <div class="option-card" onclick="reveal(this)">
+                <div class="heart-cover">💜</div>
+                <div class="hidden-text">tu me motives même quand je doute</div>
+            </div>
+            <div class="option-card" onclick="reveal(this)">
+                <div class="heart-cover">💜</div>
+                <div class="hidden-text">tout ce que tu fais est spécial</div>
+            </div>
+            <div class="option-card" onclick="reveal(this)">
+                <div class="heart-cover">💜</div>
+                <div class="hidden-text">tu me rends heureux</div>
+            </div>
+            <div class="option-card" onclick="reveal(this)">
+                <div class="heart-cover">💜</div>
+                <div class="hidden-text">et surtout t'es la meilleure des copines</div>
+            </div>
+        </div>
+        <br>
+        <button id="final-btn" class="hidden" onclick="window.location.href='/game-balloons'">Passer aux jeux ❤️</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            playMusic();
+        });
+
+        let revealedCount = 0;
+        function reveal(el) {
+            const cover = el.querySelector('.heart-cover');
+            if (!cover.classList.contains('revealed')) {
+                cover.classList.add('revealed');
+                revealedCount++;
+                if (revealedCount === 6) {
+                    setTimeout(() => {
+                        document.getElementById('final-btn').classList.remove('hidden');
+                    }, 1000);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
