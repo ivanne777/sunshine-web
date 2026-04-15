@@ -36,10 +36,14 @@ function initMusic() {
 
 function playMusic() {
     initMusic();
+    if (!audio) return;
 
     localStorage.setItem("audioPlaying", "true");
 
-    audio.play().catch(() => {
+    audio.play().then(() => {
+        console.log("Lecture audio démarrée");
+    }).catch((err) => {
+        console.warn("Autoplay bloqué, attente interaction :", err);
         showAudioSyncOverlay();
     });
 }
