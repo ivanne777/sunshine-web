@@ -72,7 +72,7 @@
                 const f = document.createElement('div');
                 f.className = 'flower';
                 f.innerHTML = "🌸";
-                f.onclick = () => {
+                f.addEventListener('pointerdown', (e) => {
                     if(!gameActive) return;
                     if(i === heartPos) {
                         f.innerHTML = "💜";
@@ -83,7 +83,7 @@
                         f.style.opacity = "0.3";
                         f.style.pointerEvents = "none";
                     }
-                };
+                });
                 garden.appendChild(f);
                 flowers.push(f);
             }

@@ -18,6 +18,7 @@ function initMusic() {
     audio = new Audio(AUDIO_SRC);
     audio.loop = true;
     audio.volume = 0.5;
+    audio.preload = "auto"; // Force le préchargement immédiat
 
     const lastTime = localStorage.getItem("audioTime");
     if (lastTime) audio.currentTime = parseFloat(lastTime);
@@ -190,11 +191,13 @@ function showMainContent() {
 /* AUTO START */
 /* ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-    initMusic();
+// Initialise la musique le plus tôt possible
+initMusic();
 
+document.addEventListener("DOMContentLoaded", () => {
+    // Si déjà lancé sur la page précédente, on tente de continuer
     if (localStorage.getItem("audioPlaying") === "true") {
-        audio?.play().catch(() => showAudioSyncOverlay());
+        playMusic();
     }
 
     if (document.getElementById("intro-container")) {

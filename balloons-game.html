@@ -20,6 +20,7 @@
         animation: floatUp 5s linear forwards;
         z-index: 10;
         user-select: none;
+        touch-action: none; /* Empêche le scroll pendant qu'on joue */
     }
     .balloon::after {
         content: '';
@@ -88,9 +89,10 @@
             b.innerHTML = "💜";
             b.style.left = (Math.random() * 80 + 10) + 'vw';
             b.style.backgroundColor = `hsl(${Math.random() * 60 + 280}, 100%, 60%)`;
-            b.style.pointerEvents = "auto"; // Ensure it can be clicked
+            b.style.pointerEvents = "auto";
 
-            b.addEventListener('mousedown', (e) => {
+            // Utiliser pointerdown pour une réactivité instantanée (souris + tactile)
+            b.addEventListener('pointerdown', (e) => {
                 e.preventDefault();
                 pop(b);
             });
